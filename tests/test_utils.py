@@ -42,3 +42,24 @@ def get_openai_config():
         speed=1.0
     )
     return GeneralConfig(args)
+
+
+def get_pdf_config():
+    args = MagicMock(
+        input_file='../../../examples/sample.pdf',
+        output_folder='output',
+        preview=False,
+        output_text=False,
+        log='INFO',
+        newline_mode='double',
+        chapter_start=1,
+        chapter_end=-1,
+        remove_endnotes=False,
+        tts='openai',
+        language='en-US',
+        voice_name='echo',
+        output_format='mp3',
+        model_name='tts-1',
+        speed=1.0
+    )
+    return GeneralConfig(args)
