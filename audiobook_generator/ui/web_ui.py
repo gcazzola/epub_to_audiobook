@@ -109,6 +109,12 @@ def process_ui_form(input_file, output_dir, worker_count, log_level, output_text
     else:
         raise ValueError("Unsupported TTS provider selected")
 
+    try:
+        if os.path.getsize(config.input_file) > 10 * 1024 * 1024:
+            print("Warning: large files may lead to slow TTS generation.")
+    except Exception:
+        pass
+
     launch_audiobook_generator(config)
 
 
@@ -135,7 +141,8 @@ def host_ui(config):
     with gr.Blocks(analytics_enabled=False, title="Epub to Audiobook Converter") as ui:
         with gr.Row(equal_height=True):
             with gr.Column():
-                input_file = gr.File(label="Select the book file to process", file_types=[".epub"], 
+                input_file = gr.File(label="Select an EPUB or PDF file to convert into a podcast-style audio.",
+                                    file_types=[".epub", ".pdf"],
                                     file_count="single", interactive=True)
 
             with gr.Column():
